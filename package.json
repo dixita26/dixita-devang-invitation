@@ -1,0 +1,24 @@
+{
+  "name": "Devang-Dixita-wedding",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "dev": "sh ./scripts/dev.sh",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint"
+  },
+  "dependencies": {
+    "canvas-confetti": "^1.9.4",
+    "framer-motion": "^11.11.17",
+    "next": "^14.2.15",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1"
+  },
+  "devDependencies": {
+    "@types/node": "^20.17.10",
+    "@types/react": "^18.3.12",
+    "@types/react-dom": "^18.3.1",
+    "typescript": "^5.7.2"
+  }
+}

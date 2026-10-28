@@ -1,0 +1,2 @@
+import { motion } from "framer-motion";
+export default function SectionHeading({eyebrow,title,description}:{eyebrow?:string;title:string;description?:string}) { return <motion.div initial={{opacity:0,y:22}} whileInView={{opacity:1,y:0}} viewport={{once:true,margin:"-80px"}} transition={{duration:.8}}><div className="eyebrow">{eyebrow}</div><h2>{title}</h2>{description&&<p>{description}</p>}</motion.div>; }
