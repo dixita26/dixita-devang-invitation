@@ -7,4 +7,4 @@ if command -v lsof >/dev/null 2>&1 && lsof -nP -iTCP:"$PORT" -sTCP:LISTEN >/dev/
   exit 1
 fi
 
-exec next dev --hostname 127.0.0.1 --port "$PORT"
+exec npx next dev --hostname 127.0.0.1 --port "$PORT"
