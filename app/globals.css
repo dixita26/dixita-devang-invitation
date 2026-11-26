@@ -1456,16 +1456,15 @@ p {
     display: block;
     object-fit: cover;
     object-position: center 38%;
-    filter: saturate(.65) sepia(.1);
 }
 
-.side-path.bride .portrait img {
+/* .side-path.bride .portrait img {
     object-position: 68% 38%;
 }
 
 .side-path.groom .portrait img {
     object-position: center 30%;
-}
+} */
 
 .timeline {
     text-align: left;
