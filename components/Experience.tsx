@@ -154,6 +154,7 @@ function WeddingSlider() {
     }, [swiperReady]);
 
     return <section className="wedding-slider" aria-label="Wedding film inspiration">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@14.0.1/swiper-bundle.min.css" />
         <Script src="https://cdn.jsdelivr.net/npm/swiper@14.0.1/swiper-bundle.min.js" strategy="afterInteractive" onLoad={() => setSwiperReady(true)} />
         <div className="wedding-slider__inner">
             <div className="eyebrow">A little inspiration</div>
