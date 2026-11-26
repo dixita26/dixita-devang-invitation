@@ -125,7 +125,7 @@ function PostVideoFlow({ onChoose }: { onChoose: (side: Side) => void }) { retur
 const weddingSliderItems = [
     { title: "Cultural Charm", image: "/images/slider/1.webp" },
     { title: "Made for Each Other", image: "/images/slider/2.webp" },
-    { title: "Growing Together", image: "/images/slider/3.webp" },
+    { title: "Growing Together", image: "/images/slider/3.jpeg" },
     { title: "Royal Romance", image: "/images/slider/4.webp" },
     { title: "Sunshine Together", image: "/images/slider/5.webp" },
     { title: "Graceful Together", image: "/images/slider/6.webp" },
