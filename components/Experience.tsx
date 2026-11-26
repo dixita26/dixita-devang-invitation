@@ -68,6 +68,38 @@ function MusicControl({ primed, shouldPlay }: { primed: boolean; shouldPlay: boo
         void audio.play();
     }, [primed, shouldPlay]);
 
+    useEffect(() => {
+        const audio = audioRef.current;
+        if (!audio) return;
+
+        const pauseWhenInactive = () => {
+            if (!document.hidden) return;
+            audio.pause();
+        };
+
+        const resumeWhenActive = () => {
+            if (document.hidden || !primed || !shouldPlay || isMuted) return;
+            void audio.play();
+        };
+
+        const handleVisibilityChange = () => {
+            if (document.hidden) pauseWhenInactive();
+            else resumeWhenActive();
+        };
+
+        document.addEventListener("visibilitychange", handleVisibilityChange);
+        window.addEventListener("pagehide", pauseWhenInactive);
+        window.addEventListener("blur", pauseWhenInactive);
+        window.addEventListener("focus", resumeWhenActive);
+
+        return () => {
+            document.removeEventListener("visibilitychange", handleVisibilityChange);
+            window.removeEventListener("pagehide", pauseWhenInactive);
+            window.removeEventListener("blur", pauseWhenInactive);
+            window.removeEventListener("focus", resumeWhenActive);
+        };
+    }, [primed, shouldPlay, isMuted]);
+
     const toggleMute = () => {
         const audio = audioRef.current;
         if (!audio) return;
