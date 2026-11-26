@@ -1,7 +1,6 @@
 "use client";
 import { useEffect, useLayoutEffect, useRef, useState } from "react";
 import { motion } from "framer-motion";
-import Image from "next/image";
 import Script from "next/script";
 import confetti from "canvas-confetti";
 import AmbientBackground from "./AmbientBackground"; import BotanicalDecor from "./BotanicalDecor"; import EventTimeline from "./EventTimeline"; import FallingPetals from "./FallingPetals"; import OpeningEnvelope from "./OpeningEnvelope"; import { sideData, sideAccent, wedding } from "../lib/wedding-data";
@@ -9,6 +8,7 @@ type Stage = "envelope" | "welcome" | "revealed"; type Side = "bride" | "groom";
 const brideVenue = "Hari Champa Resort, Jalaram Society, Adajan, Surat, Gujarat 395009";
 const brideGaneshVenue = "E-302, Shivani Complex, Opp. Shri Ram Marble, Althan Road, Bhatar, Surat 395017";
 const groomVenue = "16-A, Ram Lakhan Society, Behind Prajapati Vadi, Mehsana-2, Gujarat 384002";
+const groomWeddingVenue = "Hari Champa Resort, Jalaram Society, Adajan, Surat, Gujarat 395009";
 const groomBaratVenue = "Badrinarayan Mandir, near BAPS Hospital, Mansarovar Society, Adajan, Surat, Gujarat 395009";
 
 function useSiteProtection() {
@@ -78,7 +78,7 @@ function MusicControl({ primed, shouldPlay }: { primed: boolean; shouldPlay: boo
     };
 
     return <>
-        <audio ref={audioRef} src="/sunehra.mp3" loop preload="none" aria-hidden="true" />
+        <audio ref={audioRef} src="/sunehra.mp3" loop preload="auto" aria-hidden="true" />
         {shouldPlay && <button className="music-toggle" type="button" onClick={toggleMute} aria-label={isMuted ? "Unmute wedding music" : "Mute wedding music"} aria-pressed={isMuted}>
             <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
                 <path d="M4 9v6h4l5 4V5L8 9H4Z" />
@@ -106,13 +106,6 @@ function WeddingSlider() {
     const swiperRef = useRef<SwiperInstance | null>(null);
     const [swiperReady, setSwiperReady] = useState(false);
     useEffect(() => {
-        const stylesheet = document.createElement("link");
-        stylesheet.rel = "stylesheet";
-        stylesheet.href = "https://cdn.jsdelivr.net/npm/swiper@14.0.1/swiper-bundle.min.css";
-        document.head.appendChild(stylesheet);
-        return () => stylesheet.remove();
-    }, []);
-    useEffect(() => {
         if (window.Swiper) setSwiperReady(true);
     }, []);
     useEffect(() => {
@@ -138,7 +131,7 @@ function WeddingSlider() {
                     <div className="swiper-wrapper">
                         {weddingSliderItems.map((item) => {
                             return <article className="swiper-slide wedding-slider__slide" key={item.title}>
-                                <Image src={item.image} alt="" width={320} height={420} sizes="(max-width: 600px) 75vw, 320px" priority={item.title === "Growing Together"} loading={item.title === "Growing Together" ? undefined : "lazy"} />
+                                <img src={item.image} alt="" />
                                 <div className="wedding-slider__overlay"><h3>{item.title}</h3></div>
                             </article>;
                         })}
@@ -153,7 +146,7 @@ function WeddingSlider() {
 type SwiperInstance = { slidePrev: () => void; slideNext: () => void; destroy: () => void };
 declare global { interface Window { Swiper?: new (selector: string, options: Record<string, unknown>) => SwiperInstance; } }
 
-function IntroCard() { return <section className="section intro-card-section"><motion.article className="intro-card" initial={{ opacity: 0, y: 28 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 1.1, ease: [.22, 1, .36, 1] }}><BotanicalDecor position="left" /><Image className="intro-mark" src="/images/ganesha.webp" width={155} height={145} sizes="155px" alt="Lord Ganesha" priority /><div className="intro-hindi">वक्रतुण्ड महाकाय सूर्यकोटि समप्रभ ।<br />निर्विघ्नं कुरु मे देव सर्वकार्येषु सर्वदा ॥</div><p className="intro-request">With the blessings of the Almighty &amp; our respected elders,<br />we joyfully request your gracious presence on the wedding celebration of</p><h2>Devang</h2><p>Son of Mr. Anilkumar &amp; Mrs. Sarojben</p><div className="intro-amp">&amp;</div><h2>Dixita</h2><p>Daughter of Mr. Hasmukhbhai &amp; Mrs. Neelaben</p></motion.article></section> }
+function IntroCard() { return <section className="section intro-card-section"><motion.article className="intro-card" initial={{ opacity: 0, y: 28 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 1.1, ease: [.22, 1, .36, 1] }}><BotanicalDecor position="left" /><img className="intro-mark" src="/images/ganesha.webp" alt="Lord Ganesha" /><div className="intro-hindi">वक्रतुण्ड महाकाय सूर्यकोटि समप्रभ ।<br />निर्विघ्नं कुरु मे देव सर्वकार्येषु सर्वदा ॥</div><p className="intro-request">With the blessings of the Almighty &amp; our respected elders,<br />we joyfully request your gracious presence on the wedding celebration of</p><h2>Devang</h2><p>Son of Mr. Anilkumar &amp; Mrs. Sarojben</p><div className="intro-amp">&amp;</div><h2>Dixita</h2><p>Daughter of Mr. Hasmukhbhai &amp; Mrs. Neelaben</p></motion.article></section> }
 
 
 
@@ -161,4 +154,4 @@ function BloomEffect() { useEffect(() => { const colors = ["#B85940", "#C9963E",
 
 function Welcome({ onChoose }: { onChoose: (side: Side) => void }) { return <section className="section welcome-section"><BotanicalDecor /><BotanicalDecor position="right" flip /><div className="section-inner"><div className="eyebrow">Devang &amp; Dixita</div><h2>So… Whose side are you on?</h2><p>Every love story is made of many little celebrations. Begin with the people who brought us here.</p><div className="choice-grid"><button className="button choice" onClick={() => onChoose("bride")}><span>Dixita</span><small>her side</small></button><button className="button choice" onClick={() => onChoose("groom")}><span>Devang</span><small>his side</small></button></div></div></section> }
 
-function Revealed({ side, setSide, onBack }: { side: Side; setSide: (s: Side) => void; onBack: () => void }) { const data = sideData(side); const events = (side === "bride" ? data.events.filter(event => event.title !== "Mehendi") : data.events.filter(event => event.title !== "Ras-garba")).map(event => ({ ...event, address: side === "bride" ? event.title === "Ganesh Pooja" ? brideGaneshVenue : brideVenue : event.title === "Jan Agman" ? groomBaratVenue : groomVenue, mapUrl: side === "bride" && event.title === "Ganesh Pooja" ? "https://maps.app.goo.gl/XNE9KBNbKqtJckyL7" : undefined })); return <><section className={`section side-path ${side}`} style={{ "--side-accent": sideAccent(side) } as React.CSSProperties}><BotanicalDecor /><div className="section-inner"><div className="eyebrow">Welcome</div><h2>Meet the {side === "bride" ? "Bride" : "Groom"}</h2><div className="portrait"><Image src={data.photo} alt={`${data.name} — wedding portrait`} fill sizes="(max-width: 600px) 78vw, 360px" priority /></div><p>{data.welcome.description}</p><button className="switch" onClick={() => setSide(side === 'bride' ? 'groom' : 'bride')} aria-label={`Switch to ${side === 'bride' ? "Devang's" : "Dixita's"} side`}>Switch to {side === 'bride' ? "Devang's" : "Dixita's"} side</button><EventTimeline key={side} events={events} label="The rituals" /></div></section><section className={`section back-home-section ${side}`}><button className="back-home-button" onClick={onBack} aria-label="Back to home"><span aria-hidden="true">←</span> Back to home</button></section><section className="section closing-section"><BotanicalDecor position="right" flip /><div className="section-inner"><div className="eyebrow">With love, always</div><h2>Thank you for being part of our beginning.</h2><p>{wedding.common.closing}</p><div className="fine" style={{ marginTop: "3rem" }}>D &amp; D · 2027</div><div className="closing-credit">MADE WITH <span className="closing-heart" aria-label="love">♥</span> BY SHIVAURA</div></div></section> </> }
+function Revealed({ side, setSide, onBack }: { side: Side; setSide: (s: Side) => void; onBack: () => void }) { const data = sideData(side); const events = (side === "bride" ? data.events.filter(event => event.title !== "Mehendi") : data.events.filter(event => event.title !== "Ras-garba")).map(event => ({ ...event, address: side === "bride" ? event.title === "Ganesh Pooja" ? brideGaneshVenue : brideVenue : event.title === "Jan Agman" ? groomBaratVenue : event.title === "Wedding" ? groomWeddingVenue : groomVenue, mapUrl: side === "bride" && event.title === "Ganesh Pooja" ? "https://maps.app.goo.gl/XNE9KBNbKqtJckyL7" : undefined })); return <><section className={`section side-path ${side}`} style={{ "--side-accent": sideAccent(side) } as React.CSSProperties}><BotanicalDecor /><div className="section-inner"><div className="eyebrow">Welcome</div><h2>Meet the {side === "bride" ? "Bride" : "Groom"}</h2><div className="portrait"><img src={data.photo} alt={`${data.name} — wedding portrait`} /></div><p>{data.welcome.description}</p><button className="switch" onClick={() => setSide(side === 'bride' ? 'groom' : 'bride')} aria-label={`Switch to ${side === 'bride' ? "Devang's" : "Dixita's"} side`}><span aria-hidden="true">⇄</span> Switch to {side === 'bride' ? "Devang's" : "Dixita's"} side</button><EventTimeline key={side} events={events} label="The rituals" /></div></section><section className={`section back-home-section ${side}`}><button className="back-home-button" onClick={onBack} aria-label="Back to home"><span aria-hidden="true">←</span> Back to home</button></section><section className="section closing-section"><BotanicalDecor position="right" flip /><div className="section-inner"><div className="eyebrow">With love, always</div><h2>Thank you for being part of our beginning.</h2><p>{wedding.common.closing}</p><div className="fine" style={{ marginTop: "3rem" }}>D &amp; D · 2027</div><div className="closing-credit">MADE WITH <span className="closing-heart" aria-label="love">♥</span> BY SHIVAURA</div></div></section> </> }
