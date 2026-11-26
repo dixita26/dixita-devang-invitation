@@ -24,6 +24,7 @@ export default function OpeningEnvelope({ onOpen, onStart }: { onOpen: () => voi
   return <section className="video-gate" onClick={startVideo} aria-label="Wedding invitation opening video">
     <video ref={videoRef} className="hero-video" src="/hero-final.mp4" poster="/champagne-final-frame.webp" playsInline muted preload="metadata" onEnded={onOpen} onPause={keepPlaying} />
     <div className={`video-overlay ${started ? "is-hidden" : ""}`}>
+      <img className="video-overlay-image" src="/hero-overlay-image.webp" alt="" aria-hidden="true" />
       <div className="video-overlay-wash" />
       <div className="video-welcome">
         <div className="video-eyebrow">A celebration of love</div>
