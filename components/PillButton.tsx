@@ -1,1 +1,0 @@
-export default function PillButton({children,onClick,href}:{children:React.ReactNode;onClick?:()=>void;href?:string}) { const props={className:"button"}; return href?<a {...props} href={href} target="_blank" rel="noreferrer">{children}</a>:<button {...props} onClick={onClick}>{children}</button>; }
