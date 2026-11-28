@@ -2,7 +2,7 @@ import { motion } from "framer-motion";
 import Image from "next/image";
 import type { Event } from "../lib/wedding-data";
 
-export default function EventTimeline({ events, label, cardEventTitle }: { events: readonly Event[]; label: string; cardEventTitle?: string }) {
+export default function EventTimeline({ events, label, cardEventTitle, dressCode = false }: { events: readonly Event[]; label: string; cardEventTitle?: string; dressCode?: boolean }) {
   return <div className="timeline">
     <div className="timeline-label eyebrow">{label}</div>
     {events.map((event, i) => {
@@ -17,7 +17,7 @@ export default function EventTimeline({ events, label, cardEventTitle }: { event
             <div className="event-card-time">{event.time}</div>
           </div>
         </div> : <><div className="event-number">0{i + 1}</div><div><h3>{event.title}</h3><div className="event-meta"><span>{event.day}, {event.date}</span><span>{event.time}</span><span>{event.venue} · {event.city}</span></div></div></>}
-      </motion.article><div className="event-location"><div className="event-address">{event.address ?? [event.venue, event.city].filter(Boolean).join(", ")}</div><a className="map-link" href={event.mapUrl ?? `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(event.address ?? [event.venue, event.city].filter(Boolean).join(", "))}`} target="_blank" rel="noreferrer">View on Maps</a></div>{i < events.length - 1 && <div className="event-divider" aria-hidden="true"><span /><i /><span /></div>}</div>;
+      </motion.article><div className="event-location">{dressCode && <div className="dress-code" aria-label="Dress code"><strong>Dress Code</strong><span><i className="dress-swatch dress-swatch--green" aria-hidden="true" />Green for Ladies</span><span><i className="dress-swatch dress-swatch--pink" aria-hidden="true" />Pink for Gentlemen</span></div>}<div className="event-address">{event.address ?? [event.venue, event.city].filter(Boolean).join(", ")}</div><a className="map-link" href={event.mapUrl ?? `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(event.address ?? [event.venue, event.city].filter(Boolean).join(", "))}`} target="_blank" rel="noreferrer">View on Maps</a></div>{i < events.length - 1 && <div className="event-divider" aria-hidden="true"><span /><i /><span /></div>}</div>;
     })}
   </div>;
 }
