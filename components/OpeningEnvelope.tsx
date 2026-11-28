@@ -9,6 +9,7 @@ export default function OpeningEnvelope({ onOpen, onStart }: { onOpen: () => voi
     if (!video) return;
     onStart();
     try {
+      video.playbackRate = 1.5;
       await video.play();
       setStarted(true);
     } catch {
