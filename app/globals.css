@@ -1455,7 +1455,7 @@ p {
     height: 100%;
     display: block;
     object-fit: cover;
-    object-position: center 38%;
+    object-position: bottom;
 }
 
 /* .side-path.bride .portrait img {
@@ -1548,6 +1548,42 @@ p {
 .event-address {
     color: #79665e;
     font: italic .86rem/1.5 var(--font-display);
+}
+
+.dress-code {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: .35rem;
+    margin-bottom: 1rem;
+    color: #79665e;
+    font-size: .78rem;
+    line-height: 1.25;
+    text-align: center;
+}
+
+.dress-code strong {
+    margin-bottom: .15rem;
+    color: var(--espresso);
+    font-size: .85rem;
+    letter-spacing: .04em;
+}
+
+.dress-swatch {
+    display: inline-block;
+    width: .65rem;
+    height: .65rem;
+    margin-right: .4rem;
+    border-radius: 50%;
+    vertical-align: -.05rem;
+}
+
+.dress-swatch--green {
+    background: #6d9b68;
+}
+
+.dress-swatch--pink {
+    background: #d88f9d;
 }
 
 .map-link {
